@@ -1,3 +1,5 @@
+import { hideMobileControls } from "../systems/mobileControls.js";
+
 const PAGES = [
     {
         title: "Herois Corrigidos",
@@ -159,6 +161,8 @@ const PAGES = [
 ];
 
 export function spritePreviewScene(k) {
+    hideMobileControls();
+
     let page = 0;
 
     function render() {

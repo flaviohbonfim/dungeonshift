@@ -1,5 +1,6 @@
 import { HERO_STATS } from "../data/stats.js";
 import { playSfx } from "../systems/audio.js";
+import { hideMobileControls } from "../systems/mobileControls.js";
 
 const STAT_BAR_FRAMES = {
     FOR: [33, 34, 35],
@@ -44,6 +45,7 @@ const HERO_CARDS = [
 ];
 
 export function menuScene(k, { screen = "main" } = {}) {
+    hideMobileControls();
     drawMenuBackground(k);
 
     if (screen === "heroes") {

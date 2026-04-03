@@ -4,10 +4,13 @@ import { setupCombat } from "../systems/combat.js";
 import { playSfx } from "../systems/audio.js";
 import { generateDungeon } from "../systems/dungeon.js";
 import { setupHUD } from "../systems/hud.js";
+import { setMobileControlsPaused, showMobileControls } from "../systems/mobileControls.js";
 
 export function gameScene(k, { heroType = 1, floor = 1, heroState = null } = {}) {
     k.setGravity(0);
     k.setCamScale(2);
+
+    const mobileInput = showMobileControls();
 
     const { heroPos, enemySpawns, bounds } = generateDungeon(k, { floor });
     const hero = createHero(k, {
@@ -15,6 +18,7 @@ export function gameScene(k, { heroType = 1, floor = 1, heroState = null } = {})
         spawnPos: heroPos,
         bounds,
         savedState: heroState,
+        input: mobileInput,
     });
 
     const enemies = enemySpawns.map((spawnPos) => createEnemy(k, {
@@ -74,6 +78,7 @@ export function gameScene(k, { heroType = 1, floor = 1, heroState = null } = {})
     function openPauseMenu() {
         isPaused = true;
         setScenePaused(true);
+        setMobileControlsPaused(true);
         playSfx(k, "pauseOpen");
         pauseUi = createPauseMenu(k, {
             onResume: closePauseMenu,
@@ -94,6 +99,7 @@ export function gameScene(k, { heroType = 1, floor = 1, heroState = null } = {})
         pauseUi = [];
         setScenePaused(false);
         isPaused = false;
+        setMobileControlsPaused(false);
         playSfx(k, "pauseClose");
         k.setCursor("default");
     }

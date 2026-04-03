@@ -14,7 +14,7 @@ const KEYS = {
 
 const CAM_SPEED = 6;
 
-export function createHero(k, { heroType = 1, spawnPos, bounds = null, savedState = null } = {}) {
+export function createHero(k, { heroType = 1, spawnPos, bounds = null, savedState = null, input = null } = {}) {
     const stats = HERO_STATS[heroType];
     const origin = spawnPos ?? k.center();
     const maxHp = savedState?.maxHp ?? stats.hp;
@@ -115,11 +115,17 @@ export function createHero(k, { heroType = 1, spawnPos, bounds = null, savedStat
 
         let vx = 0;
         let vy = 0;
+        const mobileMove = input?.getMoveVector?.() ?? { x: 0, y: 0 };
 
         if (KEYS.left.some(k.isKeyDown.bind(k))) vx -= 1;
         if (KEYS.right.some(k.isKeyDown.bind(k))) vx += 1;
         if (KEYS.up.some(k.isKeyDown.bind(k))) vy -= 1;
         if (KEYS.down.some(k.isKeyDown.bind(k))) vy += 1;
+
+        if (vx === 0 && vy === 0) {
+            vx = mobileMove.x;
+            vy = mobileMove.y;
+        }
 
         const moving = vx !== 0 || vy !== 0;
 
@@ -140,7 +146,7 @@ export function createHero(k, { heroType = 1, spawnPos, bounds = null, savedStat
     hero.onUpdate(() => {
         if (hero.isDead || isAttacking || isHurting) return;
 
-        if (KEYS.attack.some(k.isKeyPressed.bind(k))) {
+        if (KEYS.attack.some(k.isKeyPressed.bind(k)) || input?.consumeAttackPress?.()) {
             triggerAttack();
         }
     });

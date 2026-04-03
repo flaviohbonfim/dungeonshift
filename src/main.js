@@ -9,6 +9,8 @@ import { initAudio } from "./systems/audio.js";
 export const k = kaplay({
     width: 1280,
     height: 720,
+    stretch: true,
+    letterbox: true,
     background: [26, 26, 46],
     crisp: true,
     debug: true,

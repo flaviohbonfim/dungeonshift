@@ -1,4 +1,5 @@
 import { playSfx } from "../systems/audio.js";
+import { hideMobileControls } from "../systems/mobileControls.js";
 
 export function gameoverScene(k, {
     floor = 1,
@@ -6,6 +7,8 @@ export function gameoverScene(k, {
     kills = 0,
     heroName = "Heroi",
 } = {}) {
+    hideMobileControls();
+
     k.add([
         k.rect(k.width(), k.height()),
         k.pos(0, 0),
