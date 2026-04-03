@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DungeonShift icon">
+  <rect width="64" height="64" rx="14" fill="#141c29"/>
+  <path d="M32 8 54 20v24L32 56 10 44V20Z" fill="#243248" stroke="#7aa0d6" stroke-width="3"/>
+  <path d="M25 19h9c7 0 12 5 12 13s-5 13-12 13h-9Zm8 20c4 0 7-3 7-7s-3-7-7-7h-2v14Z" fill="#ecf2ff"/>
+  <path d="M18 17h8v30h-8z" fill="#7aa0d6"/>
+</svg>
